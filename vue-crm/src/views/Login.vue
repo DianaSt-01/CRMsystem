@@ -10,11 +10,11 @@
             :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
         >
         <label for="email">Email</label>
-        <small
+        <small 
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
         >Поле Email не должно быть пустым</small>
-        <small
+        <small 
           class="helper-text invalid"
           v-else-if="$v.email.$dirty && !$v.email.email"
         >Введите корретный Email</small>
@@ -27,13 +27,13 @@
             :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         >
         <label for="password">Пароль</label>
-        <small
+        <small 
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
         >
           Введите пароль
         </small>
-        <small
+        <small 
           class="helper-text invalid"
           v-else-if="$v.password.$dirty && !$v.password.minLength"
         >
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { email, required, minLength } from 'vuelidate/lib/validators'
+import {email, required, minLength} from 'vuelidate/lib/validators'
 import messages from '@/utils/messages'
 
 export default {
@@ -71,16 +71,16 @@ export default {
     password: ''
   }),
   validations: {
-    email: { email, required },
-    password: { required, minLength: minLength(6) }
+    email: {email, required},
+    password: {required, minLength: minLength(6)}
   },
-  mounted () {
+  mounted() {
     if (messages[this.$route.query.message]) {
       this.$message(messages[this.$route.query.message])
     }
   },
   methods: {
-    async submitHandler () {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch()
         return
@@ -89,9 +89,9 @@ export default {
         email: this.email,
         password: this.password
       }
+
       try {
         await this.$store.dispatch('login', formData)
-
         this.$router.push('/')
       } catch (e) {}
     }

@@ -10,11 +10,11 @@
             :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
         >
         <label for="email">Email</label>
-        <small
+        <small 
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
         >Поле Email не должно быть пустым</small>
-        <small
+        <small 
           class="helper-text invalid"
           v-else-if="$v.email.$dirty && !$v.email.email"
         >Введите корретный Email</small>
@@ -27,13 +27,13 @@
             :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         >
         <label for="password">Пароль</label>
-        <small
+        <small 
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
         >
           Введите пароль
         </small>
-        <small
+        <small 
           class="helper-text invalid"
           v-else-if="$v.password.$dirty && !$v.password.minLength"
         >
@@ -48,7 +48,7 @@
             :class="{invalid: $v.name.$dirty && !$v.name.required}"
         >
         <label for="name">Имя</label>
-        <small
+        <small 
           class="helper-text invalid"
           v-if="$v.name.$dirty && !$v.name.required"
         >
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { email, required, minLength } from 'vuelidate/lib/validators'
+import {email, required, minLength} from 'vuelidate/lib/validators'
 
 export default {
   name: 'register',
@@ -93,13 +93,13 @@ export default {
     agree: false
   }),
   validations: {
-    email: { email, required },
-    password: { required, minLength: minLength(6) },
-    name: { required },
-    agree: { checked: v => v }
+    email: {email, required},
+    password: {required, minLength: minLength(6)},
+    name: {required},
+    agree: {checked: v => v}
   },
   methods: {
-    async submitHandler () {
+    async submitHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch()
         return
@@ -110,6 +110,7 @@ export default {
         password: this.password,
         name: this.name
       }
+
       try {
         await this.$store.dispatch('register', formData)
         this.$router.push('/')

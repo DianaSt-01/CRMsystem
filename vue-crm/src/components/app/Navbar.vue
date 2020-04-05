@@ -39,35 +39,34 @@
   </nav>
 </template>
 
-<script>
 
+<script>
 export default {
   data: () => ({
     date: new Date(),
     interval: null,
-    dropdown: null
+    dropdown: null,
   }),
   methods: {
-    async logout () {
+    async logout() {
       await this.$store.dispatch('logout')
       this.$router.push('/login?message=logout')
     }
   },
   computed: {
-    name () {
+    name() {
       return this.$store.getters.info.name
     }
   },
-  mounted () {
+  mounted() {
     this.interval = setInterval(() => {
       this.date = new Date()
     }, 1000)
-    // eslint-disable-next-line no-undef
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: false
     })
   },
-  beforeDestroy () {
+  beforeDestroy() {
     clearInterval(this.interval)
     if (this.dropdown && this.dropdown.destroy) {
       this.dropdown.destroy()

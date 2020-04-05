@@ -1,11 +1,8 @@
-/* eslint-disable no-template-curly-in-string */
-/* eslint-disable comma-spacing */
 import firebase from 'firebase/app'
 
 export default {
   actions: {
-    async login ({ dispath,commit }, { email, password }) {
-      // eslint-disable-next-line no-useless-catch
+    async login({dispatch, commit}, {email, password}) {
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password)
       } catch (e) {
@@ -13,7 +10,7 @@ export default {
         throw e
       }
     },
-    async register ({ dispatch, commit }, { email, password, name }) {
+    async register({dispatch, commit}, {email, password, name}) {
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
         const uid = await dispatch('getUid')
@@ -26,11 +23,11 @@ export default {
         throw e
       }
     },
-    getUid () {
+    getUid() {
       const user = firebase.auth().currentUser
       return user ? user.uid : null
     },
-    async logout ({ commit }) {
+    async logout({commit}) {
       await firebase.auth().signOut()
       commit('clearInfo')
     }
